@@ -39,14 +39,14 @@ app.get("/compose", (req, res) =>{
 })
 
 app.get("/posts/:path", (req, res) =>{
-  let postPath = req.params.path;
+  let postPath = _.lowerCase(req.params.path);
 
   posts.forEach((post) => {
+
    let postTitle = _.lowerCase([post.title])
+
     if (postPath === postTitle) {
-       console.log("Match Found")
-    } else{
-      console.log("Match Not Found")
+       res.render("post", {postTitle: post.title, postBody: post.body})
     }
   })
 })
